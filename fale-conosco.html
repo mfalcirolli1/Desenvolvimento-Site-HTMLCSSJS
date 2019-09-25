@@ -96,6 +96,63 @@
             text-decoration: underline;
             color: rgb(10, 10, 46);
         }
+        header#cabecalho-artigo h1 {
+            font-family: 'FonteLogo' sans-serif;
+            font-size: 20pt;
+            color: gray;
+            margin-bottom: 0px;
+            margin-top: 0px;
+        }
+        header#cabecalho-artigo h2 {
+            font-size: 13pt;
+            color: rgb(105, 101, 101);
+            margin-bottom: 0px;
+            margin-top: 0px;
+            background-color: white;
+        }
+        header#cabecalho-artigo h3 {
+            font-size: 12px;
+            color: rgb(54, 54, 54);
+        }
+        form {
+            width: 500px;
+            margin: auto;
+        }
+        input, textarea {
+            font-family: sans-serif;
+            font-weight: normal;
+            font-size: 13pt;
+            background-color: rgba(255, 255, 255, 0.623);
+        }
+        input:hover, textarea:hover {
+            background-color: rgb(226, 226, 226);
+        }
+        legend {
+            color: gray;
+            font-weight: bold;
+            font-size: 13pt;
+            font-family: sans-serif;
+        }
+        fieldset {
+            border-color: rgb(177, 177, 177);
+            margin: 20px;
+        }
+        fieldset#usuario {
+            background: url("_imagens/icone-contato.png") no-repeat 95% 95%;
+        }
+        fieldset#endereco {
+            background: url("_imagens/icone-endereco.png") no-repeat 95% 95%;
+        }
+        fieldset#mensagem {
+            background: url("_imagens/icone-mensagem.png") no-repeat 95% 95%;
+        }
+        fieldset#pedido {
+            background: url("_imagens/icone-pagamento.png") no-repeat 95% 95%;
+        }
+        input#enviar {
+            position: relative;
+            left: 175px;
+        }
     </style>
 
 </head>
@@ -103,6 +160,11 @@
 <script>
     function mudaFoto(foto) {
     window.document.getElementById('icone').src = foto
+    }
+    function calc_total() {
+        var qtd = parseInt(document.getElementById('cqtd').value);
+        tot = qtd * 1500
+        document.getElementById('ctot').value = tot
     }
 </script>
 
@@ -130,38 +192,68 @@
 </nav>
 </header>
 
-Fale Conosco > Contato
-Formulário de Contato
-por Gustavo Guanabara
-Atualizado em 01/Maio/2013
+<section id="corpofull">
+    <article id="noticia-principal">
+        <header id="cabecalho-artigo">
+            <hgroup>
+            <h3>Fale Conosco > Contato</h3>
+            <h1>Formulário de Contato</h1>
+            <h2>Professor Gustavo Guanabara</h2>
+            <h2>Aluno Matheus Falcirolli</h2>
+            <h3 style='text-align: right'>Atualizado em 01/Maio/2013</h3>
+            </hgroup>
+        </header>
 
-Identificação do Usuário
-    Nome:
-    Senha:
-    E-mail:
-    Sexo:
-        - Masculino
-        - Feminino
-    Data de Nascimento:
+<form method="POST" id="fcontato" action="mailto:fmatheus8@gmail.com" oninput="calc_total();">
 
-Endereço do Usuário
-    Logradouro:
-    Número:
-    Estado:
-    Cidade:
+<fieldset id="usuario">
+    <legend>Identificação do Usuário</legend>
+    <p> <label for="cnome">Nome:</label><input type="text" name="tnome" id="cnome" size="20" maxlength="30" placeholder="Nome Completo"/></p>
+    <p> <label for="csenha">Senha:</label><input type="password" name="tsenha" id="csenha" size="20" maxlength="10" placeholder="Senha (até 10 digitos)"/></p>
+    <p> <label for="cmail">E-mail:</label><input type="email" name="tmail" id="cmail" size="20" maxlength="40" placeholder="E-mail"/></p>
+    <fieldset id="sexo">
+        <legend>Sexo:</legend>
+        <input type="radio" name="tsexo" id="cmasc"/> <label for="cmasc">Masculino</label> <br/>
+        <input type="radio" name="tsexo" id="cfem"/> <label for="cfem">Feminino</label>
+    </fieldset>
+    <p> <label for="">Data de Nascimento:</label><input type="date" name="tnasc" id="cnasc"/></p>
+</fieldset>
 
-Mensagem do Usuário
-    Grau de Urgência:
-    Mensagem:
+<fieldset id="endereco">
+    <legend>Endereço do Usuário</legend>
+    <p><label for="crua">Logradouro:</label><input type="text" name="trua" id="crua" size="13" maxlength="60" placeholder="Rua, Av, Apto"/></p>
+    <p><label for="cnum">Número:</label><input type="number" name="tnum" id="cnum" min="0" max="99999" placeholder="Nº"/></p>
+    <p><label for="cest">Estado:</label>
+        <select name="test" id="cest">
+            <option>RJ</option>
+            <option selected>SP</option>
+            <option>MG</option>
+            <option>PR</option>
+            <option>SC</option>
+            <option>RS</option>
+        </select> </p>
+    <p><label for="ccid">Cidade:</label><input type="text" name="tcid" id="ccid" size="20" maxlength="40" placeholder="Cidade"/></p>
+</fieldset>
 
-Quero um Google Glass
-    Gostaria de adquirir um Google Glass quando disponível
-    Cor:
-    Quantidade:
-    Preço Total: R$
+<fieldset id="mensagem">
+    <legend>Mensagem do Usuário</legend>
+    <p><label for="curg">Grau de Urgência:</label> Min<input type="range" name="turg" id="curg" min="0" max="10" step="2"/>Máx</p>
+    <p><label for="cmsg">Mensagem:</label><textarea name="tmsg" id="cmsg" cols="40" rows="5" placeholder="Deixe aqui sua mensagem"></textarea></p>
+</fieldset>
 
+<fieldset id="pedido">
+    <legend>Quero um Google Glass</legend>
+    <p><input type="checkbox" name="tped" id="cped" checked/> <label for="cped">Gostaria de adquirir um Google Glass quando disponível</label></p>
+    <p><label for="ccor">Cor:</label><input type="color" name="tcor" id="ccor"/></p>
+    <p><label for="cqtd">Quantidade:</label> <input type="number" name="tqtd" id="cqtd" min="0" max="5" value="0"/> </p>
+    <p><label for="ctot">Preço Total: R$</label> <input type="text" name="ttot" id="ctot" placeholder="Total a Pagar" readonly/></p>
+</fieldset>
 
-[BOTÃO ENVIAR]
+<input id="enviar" type="image" name="tenviar" src="_imagens/botao-enviar.png"/>
+</form>
+
+    </article>
+</section>
 
 <footer id="rodape">
 <p>Copyright &copy; 2013 - by Gustavo Guanabara <br/>
